@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
-  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'zh'>('th');
+  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'zh'>('th');
 
   const heroVideos = {
     th: {
@@ -47,6 +47,13 @@ export const Hero: React.FC<HeroProps> = ({
       labelEn: '🇯🇵 JPViet Clip (Japan)',
       badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI NHẬT HỌC TIẾNG VIỆT',
       badgeEn: 'REAL DEMO: JPVIET LEARNING APP'
+    },
+    kr: {
+      url: '/video/krviet-video.mp4',
+      labelVi: '🇰🇷 Clip App KRViet (Hàn Quốc)',
+      labelEn: '🇰🇷 KRViet Clip (South Korea)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI HÀN HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: KRVIET LEARNING APP'
     },
     zh: {
       url: '/video/zhviet-video.mp4',
@@ -178,12 +185,12 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Video Player Box (THViet, JPViet, ZHViet Real Video Clips) */}
+        {/* Video Player Box (THViet, JPViet, KRViet, ZHViet Real Video Clips) */}
         <div className="mt-10 sm:mt-14 max-w-4xl mx-auto">
           
           {/* Video App Selector Pills above player */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-            {(['th', 'jp', 'zh'] as const).map((key) => {
+            {(['th', 'jp', 'kr', 'zh'] as const).map((key) => {
               const isSelected = heroVideoApp === key;
               return (
                 <button
@@ -249,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({
                       {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video Giới Thiệu' : 'Interactive Street Scenarios & Phonetic Video Tour'}
                     </h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto hidden sm:block">
-                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
+                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, KRViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
                     </p>
                   </div>
 
@@ -266,7 +273,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                   {/* Bottom bar */}
                   <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400 relative z-10">
-                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • ZHViet</span>
+                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • KRViet • ZHViet</span>
                     <button
                       onClick={onOpenVideoTour}
                       className="text-emerald-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"

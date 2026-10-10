@@ -60,7 +60,9 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: '저기요, 이 테이블 계산 좀 부탁해요!'
     },
     videoThumbnail: '/brand/kr-thumb.jpg',
-    tagColor: 'from-blue-500/20 to-indigo-600/30'
+    tagColor: 'from-blue-500/20 to-indigo-600/30',
+    hasVideo: true,
+    videoUrl: '/video/krviet-video.mp4'
   },
   {
     id: 'usviet',
