@@ -71,27 +71,27 @@ export const QuickOnboarding: React.FC<QuickOnboardingProps> = ({ onOpenConsulta
   const plan = getCustomPlan();
 
   return (
-    <section id="onboard" className="py-20 md:py-28 bg-[#0B0F17] relative">
+    <section id="onboard" className="py-16 sm:py-24 bg-white dark:bg-[#0B0F17] relative transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold uppercase">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-mono font-bold uppercase">
             <Zap className="w-3.5 h-3.5" />
             <span>{t('onboard.section.badge')}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">
             {t('onboard.title')}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             {t('onboard.subtitle')}
           </p>
         </div>
 
         {/* 1-Minute Onboarding Box */}
-        <div className="max-w-5xl mx-auto rounded-3xl bg-gradient-to-b from-slate-900 via-[#0E1524] to-[#0A0E18] border border-amber-500/30 p-6 sm:p-10 shadow-2xl shadow-amber-950/20">
+        <div className="max-w-5xl mx-auto rounded-3xl bg-slate-50 dark:bg-gradient-to-b dark:from-slate-900 dark:via-[#0E1524] dark:to-[#0A0E18] border border-amber-500/30 p-6 sm:p-10 shadow-2xl shadow-amber-950/20">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             

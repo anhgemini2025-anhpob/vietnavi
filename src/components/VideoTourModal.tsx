@@ -75,7 +75,7 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
             </span>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">
-                VIETREAL 360° MEDIA SHOWCASE
+                THAIVIET 35S DEMO • VIETREAL 360°
               </span>
             </div>
 
@@ -216,8 +216,8 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>
               {language === 'vi' 
-                ? 'Hệ thống tự động phát hiện khẩu hình và phân tích cao độ giọng người học.' 
-                : 'AI engine analyzes pitch frequencies and phonetic articulation in real time.'}
+                ? 'Video chính thức: App Người Thái Học Tiếng Việt (THAI-VIET). Các app khác đang trong giai đoạn phát triển video.' 
+                : 'Official Video: THAIVIET Learning App. Videos for other language apps are in development.'}
             </span>
           </div>
 

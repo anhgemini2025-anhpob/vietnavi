@@ -41,21 +41,21 @@ export const PronounMatrixInteractive: React.FC = () => {
   const calculated = calculatePronoun();
 
   return (
-    <section id="pronouns" className="py-20 bg-[#090D16] relative">
+    <section id="pronouns" className="py-16 sm:py-24 bg-slate-50 dark:bg-[#090D16] relative transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold uppercase">
             <Users2 className="w-3.5 h-3.5" />
             <span>{language === 'vi' ? 'VĂN HÓA XƯNG HÔ THỰC CHIẾN' : 'CULTURAL PRONOUN HIERARCHY'}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">
             {language === 'vi' ? 'Ma Trận Xưng Hô Tiếng Việt 360°' : 'Vietnamese 360° Pronoun Decision Tree'}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             {language === 'vi' 
               ? 'Khác với đại từ trung tính You / I trong tiếng Anh, người Việt xưng hô dựa trên tuổi tác, vai vế và mức độ thân mật. Hãy làm chủ ma trận này để giao tiếp lịch thiệp như người bản xứ.'
               : 'Master the age-gender relational matrix that replaces the generic "You & I". Never worry about offending colleagues, elders or service staff again.'}
@@ -72,8 +72,8 @@ export const PronounMatrixInteractive: React.FC = () => {
                 onClick={() => setSelectedPronoun(item)}
                 className={`p-3.5 rounded-2xl border text-center transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-b from-cyan-500/20 to-emerald-500/20 border-cyan-400 text-white shadow-lg shadow-cyan-500/20'
-                    : 'bg-slate-900/60 hover:bg-slate-800 border-slate-800 text-slate-300'
+                    ? 'bg-gradient-to-b from-cyan-500/20 to-emerald-500/20 border-cyan-400 text-slate-900 dark:text-white shadow-lg shadow-cyan-500/20'
+                    : 'bg-white dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
                 <div className="text-xl font-black text-cyan-300">{item.pronoun}</div>

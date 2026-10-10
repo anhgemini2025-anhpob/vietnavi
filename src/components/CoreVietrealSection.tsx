@@ -92,21 +92,36 @@ export const CoreVietrealSection: React.FC = () => {
           
           {/* Top Row: App Title & Launch App CTA */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-md bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 text-xs font-mono font-extrabold uppercase">
-                  FLAGSHIP CORE
-                </span>
-                <span className="text-xs font-mono text-slate-400">
-                  Engineered by DUY ANH LAB • digital
-                </span>
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-slate-900 border border-cyan-500/40 p-1.5 shrink-0 shadow-lg flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/brand/Vietreal.png" 
+                  alt="VIETREAL 360°" 
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
-                VIETREAL 360° — Dạy Tiếng Việt Thực Chiến
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
-                Nền tảng học tiếng Việt qua tình huống thực chiến đầu tiên tại Việt Nam kết hợp thuật toán âm học phân tích phổ tần số giọng nói và ma trận xưng hô gia đình.
-              </p>
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <span className="px-2.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 text-[11px] font-mono font-extrabold uppercase">
+                    FLAGSHIP CORE
+                  </span>
+                  <span className="text-xs font-mono text-slate-400">
+                    DUY ANH LAB • digital
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mt-1">
+                  VIETREAL 360° — Dạy Tiếng Việt Thực Chiến
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 mt-0.5 max-w-2xl">
+                  {language === 'vi' 
+                    ? 'Nền tảng học tiếng Việt qua tình huống thực chiến đầu tiên tại Việt Nam kết hợp thuật toán âm học phân tích phổ tần số giọng nói và ma trận xưng hô gia đình.'
+                    : 'The premier real-world situational Vietnamese platform combining acoustic pitch analysis and social hierarchy matrix.'}
+                </p>
+              </div>
             </div>
 
             <a

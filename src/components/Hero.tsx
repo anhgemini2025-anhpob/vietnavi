@@ -7,11 +7,13 @@ import {
   Sparkles, 
   Volume2, 
   ArrowRight, 
-  Smartphone, 
-  ShieldCheck, 
   Zap,
   Globe2,
-  Headphones
+  Headphones,
+  Sliders,
+  Smartphone,
+  CheckCircle2,
+  Video
 } from 'lucide-react';
 
 interface HeroProps {
@@ -28,204 +30,244 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenDemo
 }) => {
   const { language, t } = useLanguage();
-  const [activePhraseHover, setActivePhraseHover] = useState<string | null>(null);
+  const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
 
   const quickPhrases = SURVIVAL_PHRASES.slice(0, 5);
 
   return (
-    <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 overflow-hidden">
+    <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-24 overflow-hidden">
       
-      {/* Background Radial Glow & Grid Pattern */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-cyan-500/15 via-emerald-500/10 to-amber-500/10 blur-[130px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:32px_32px] opacity-25 pointer-events-none -z-10" />
+      {/* Background Radial Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[450px] bg-gradient-to-tr from-cyan-500/15 via-emerald-500/10 to-amber-500/10 blur-[120px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:28px_28px] opacity-20 pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Floating Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 shadow-lg shadow-cyan-500/10 backdrop-blur-md">
+        <div className="flex justify-center mb-5 sm:mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-cyan-500/30 shadow-md shadow-cyan-500/10 backdrop-blur-md">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
-            <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-cyan-300 uppercase">
+            <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wide text-cyan-700 dark:text-cyan-300 uppercase">
               {t('hero.badge')}
             </span>
           </div>
         </div>
 
         {/* Hero Title & Subtitle */}
-        <div className="text-center max-w-4xl mx-auto space-y-5">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+        <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-5">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+            <span className="block">
               {language === 'vi' ? 'Nói tiếng Việt thật —' : 'Speak real Vietnamese —'}
             </span>
-            <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
+            <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-500 dark:from-cyan-400 dark:via-teal-300 dark:to-emerald-400">
               {language === 'vi' ? 'Ngay từ bài học đầu tiên.' : 'From your very first lesson.'}
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             {t('hero.subtitle')}
           </p>
 
           {/* Main Action Buttons */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={onOpenTrial}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer group"
             >
-              <Zap className="w-5 h-5 fill-slate-950 group-hover:animate-bounce" />
+              <Zap className="w-4 h-4 fill-slate-950 group-hover:animate-bounce" />
               <span>{t('hero.cta.trial')}</span>
               <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
             </button>
 
             <button
               onClick={onOpenDemo}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-[#111827]/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-500/40 text-slate-200 font-bold text-sm sm:text-base shadow-lg transition-all cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700/80 hover:border-cyan-500 text-slate-800 dark:text-slate-200 font-bold text-sm sm:text-base shadow-sm transition-all cursor-pointer"
             >
-              <Headphones className="w-4 h-4 text-cyan-400" />
+              <Headphones className="w-4 h-4 text-cyan-500" />
               <span>{t('hero.cta.demo')}</span>
             </button>
           </div>
 
-          {/* Quick Metrics Bar */}
-          <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto text-left">
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-              <div className="text-cyan-400 font-extrabold text-lg sm:text-xl font-mono">10,000+</div>
-              <div className="text-xs text-slate-400">{t('hero.stats.learners')}</div>
+          {/* 4 Realistic Feature Highlights (Cá nhân hóa, 13 ngôn ngữ tailor, 6 thanh, PWA) */}
+          <div className="pt-6 sm:pt-8 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 max-w-4xl mx-auto text-left">
+            
+            {/* 1. Cá nhân hóa */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/40 transition-all shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <Sliders className="w-4 h-4 text-cyan-500" />
+                <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold uppercase">Lộ Trình</span>
+              </div>
+              <div className="text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm">
+                {t('hero.stats.learners')}
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {t('hero.stats.learners.sub')}
+              </div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-              <div className="text-emerald-400 font-extrabold text-lg sm:text-xl font-mono">13 Apps</div>
-              <div className="text-xs text-slate-400">{t('hero.stats.countries')}</div>
+
+            {/* 2. 13 Ngôn ngữ tailor */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 transition-all shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <Globe2 className="w-4 h-4 text-emerald-500" />
+                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase">13 Ngôn Ngữ</span>
+              </div>
+              <div className="text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm">
+                {t('hero.stats.tailor')}
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {t('hero.stats.tailor.sub')}
+              </div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-              <div className="text-amber-400 font-extrabold text-lg sm:text-xl font-mono">98.5%</div>
-              <div className="text-xs text-slate-400">{t('hero.stats.accuracy')}</div>
+
+            {/* 3. Chuẩn 6 thanh */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 transition-all shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">Âm Học</span>
+              </div>
+              <div className="text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm">
+                {t('hero.stats.tones')}
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {t('hero.stats.tones.sub')}
+              </div>
             </div>
-            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-              <div className="text-rose-400 font-extrabold text-lg sm:text-xl font-mono">Offline PWA</div>
-              <div className="text-xs text-slate-400">Zero App Store Wait</div>
+
+            {/* 4. PWA Cài Màn hình */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500/40 transition-all shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <Smartphone className="w-4 h-4 text-purple-500" />
+                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">Cài Đặt</span>
+              </div>
+              <div className="text-slate-900 dark:text-white font-extrabold text-xs sm:text-sm">
+                {t('hero.stats.pwa')}
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                {t('hero.stats.pwa.sub')}
+              </div>
             </div>
+
           </div>
         </div>
 
-        {/* Hero Video Showcase Card (Responsive 16:9 Container) */}
-        <div className="mt-12 sm:mt-16 max-w-5xl mx-auto">
-          <div className="relative rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-cyan-500/30 via-slate-800/50 to-emerald-500/20 border border-cyan-500/30 shadow-2xl shadow-cyan-950/50 group">
+        {/* Video Player Box (Vietreal 360° & ThaiViet Real Video 35s) */}
+        <div className="mt-10 sm:mt-14 max-w-4xl mx-auto">
+          <div className="relative rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-cyan-500/20 via-slate-800/40 to-emerald-500/20 border border-cyan-500/30 shadow-2xl overflow-hidden group">
             
-            <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-[#070A10] border border-slate-800">
+            <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
               
-              {/* Background Mockup Visual with Simulated App UI */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#0B0F17] via-[#0D1524] to-[#081B26] flex flex-col justify-between p-6 sm:p-10">
-                
-                {/* Visual App Simulation Preview inside Video Box */}
-                <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    </div>
-                    <span className="text-xs font-mono text-cyan-300 font-semibold">
-                      VIETREAL 360° Real-World Simulator v2.6
-                    </span>
-                  </div>
-
-                  {/* 360 Video Tour Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold font-mono">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                    <span>{t('hero.video.badge')}</span>
-                  </div>
-                </div>
-
-                {/* Center Content Mockup */}
-                <div className="my-auto text-center space-y-4 max-w-xl mx-auto">
-                  <span className="inline-block text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                    {language === 'vi' ? 'TRẢI NGHIỆM TƯƠNG TÁC THỰC TẾ' : 'INTERACTIVE EXPAT EXPERIENCE'}
-                  </span>
+              {isPlayingHeroVideo ? (
+                <video
+                  src="/video/thviet-video.mp4"
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full relative flex flex-col justify-between p-5 sm:p-8 bg-gradient-to-tr from-[#080D18] via-[#0D1526] to-[#0A1A24]">
                   
-                  <h3 className="text-xl sm:text-3xl font-extrabold text-white">
-                    {language === 'vi' 
-                      ? 'Thực Hành Giao Tiếp Sống Động Cùng Gia Sư AI & Phân Tích Sóng Âm' 
-                      : 'Live AI Role-Play & Real-Time Pitch Frequency Wave Tracking'}
-                  </h3>
+                  {/* Top Bar inside Video Preview */}
+                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                      </div>
+                      <span className="text-[11px] font-mono text-cyan-300 font-semibold truncate">
+                        THAIVIET &amp; VIETREAL 360° Real-World Demo
+                      </span>
+                    </div>
 
-                  <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto hidden sm:block">
-                    {language === 'vi'
-                      ? 'Bấm nút để mở video tour 360° và phòng thí nghiệm ngữ âm thực chiến.'
-                      : 'Click below to launch the 360° interactive tour and test simulated street scenarios.'}
-                  </p>
-                </div>
-
-                {/* Tone waveform mini badge */}
-                <div className="flex items-center justify-between border-t border-slate-800/80 pt-4 text-xs font-mono text-slate-400">
-                  <div className="flex items-center gap-2">
-                    <span className="text-cyan-400">● 6 Tones:</span>
-                    <span className="hidden sm:inline">Ngang (—) • Huyền (\) • Sắc (/) • Hỏi (?) • Ngã (~) • Nặng (.)</span>
-                    <span className="sm:hidden">6 Tone Contours</span>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-[11px] font-mono font-bold">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                      <span>35s Video Live</span>
+                    </div>
                   </div>
-                  <div className="text-emerald-400 font-bold">
-                    Sound Synthesizer Ready
+
+                  {/* Center Call to Action */}
+                  <div className="my-auto text-center space-y-3">
+                    <span className="inline-block text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold">
+                      {language === 'vi' ? 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI THÁI HỌC TIẾNG VIỆT' : 'REAL DEMO: THAIVIET LEARNING APP'}
+                    </span>
+                    <h3 className="text-lg sm:text-2xl font-extrabold text-white">
+                      {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video 360°' : 'Interactive Street Scenarios & Phonetic Video Tour'}
+                    </h3>
+                    <p className="text-xs text-slate-400 max-w-md mx-auto hidden sm:block">
+                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (35 giây).' : 'Click play below to watch the official 35-second demo video.'}
+                    </p>
                   </div>
+
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[1px] hover:bg-black/15 transition-all">
+                    <button
+                      onClick={() => setIsPlayingHeroVideo(true)}
+                      className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 shadow-2xl shadow-cyan-500/50 hover:scale-110 active:scale-95 transition-transform cursor-pointer group/btn"
+                      aria-label="Play video"
+                    >
+                      <Play className="w-7 h-7 sm:w-9 sm:h-9 fill-slate-950 ml-1 group-hover/btn:scale-110 transition-transform" />
+                    </button>
+                  </div>
+
+                  {/* Bottom bar */}
+                  <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400">
+                    <span className="text-cyan-400">● Video thực tế: THAIVIET</span>
+                    <span className="text-slate-400 hidden sm:inline">Các ngôn ngữ khác: Đang ghi hình &amp; phát triển</span>
+                    <button
+                      onClick={onOpenVideoTour}
+                      className="text-emerald-400 hover:underline flex items-center gap-1 font-bold"
+                    >
+                      <span>Mở phòng mô phỏng 360°</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+
                 </div>
-
-              </div>
-
-              {/* Glowing Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/35 backdrop-blur-[2px] transition-all group-hover:bg-black/20">
-                <button
-                  onClick={onOpenVideoTour}
-                  className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 shadow-2xl shadow-cyan-500/60 hover:scale-110 active:scale-95 transition-transform cursor-pointer group/btn"
-                  aria-label="Play 360 Video Tour"
-                >
-                  <span className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-40" />
-                  <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-slate-950 ml-1 group-hover/btn:scale-110 transition-transform" />
-                </button>
-              </div>
+              )}
 
             </div>
           </div>
         </div>
 
-        {/* Quick Action Bar (ORDER PHỞ, COFFEE, HOW MUCH, GRAB, RENT) */}
-        <div className="mt-12 sm:mt-16 max-w-5xl mx-auto">
-          <div className="p-4 sm:p-6 rounded-2xl bg-[#0F172A]/80 border border-slate-800 backdrop-blur-xl shadow-xl">
+        {/* Quick Survival Phrases Bar */}
+        <div className="mt-8 sm:mt-12 max-w-4xl mx-auto">
+          <div className="p-3.5 sm:p-5 rounded-2xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-md">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
-                <Sparkles className="w-4 h-4 text-amber-400" />
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 <span>{t('hero.quick.title')}</span>
               </div>
-              <span className="text-xs text-slate-400 font-mono">
-                {language === 'vi' ? 'Bấm vào câu bất kỳ để thử phát âm:' : 'Click any button to test phrase:'}
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono hidden sm:inline">
+                {language === 'vi' ? 'Bấm để nghe & luyện giọng:' : 'Click to test phrase:'}
               </span>
             </div>
 
-            {/* Quick Action Buttons Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
               {quickPhrases.map((phrase) => (
                 <button
                   key={phrase.id}
                   onClick={() => onSelectPhrase(phrase)}
-                  onMouseEnter={() => setActivePhraseHover(phrase.id)}
-                  onMouseLeave={() => setActivePhraseHover(null)}
-                  className="px-3.5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-left transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-between group shadow-sm"
+                  className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 text-left transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-between group shadow-sm"
                 >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <span className="text-lg group-hover:scale-110 transition-transform shrink-0">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="text-base group-hover:scale-110 transition-transform shrink-0">
                       {phrase.icon}
                     </span>
                     <div className="truncate">
-                      <div className="text-xs font-bold text-slate-200 group-hover:text-cyan-300 truncate">
+                      <div className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 truncate">
                         {language === 'vi' ? phrase.categoryLabelVi : phrase.categoryLabelEn}
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate">
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate font-mono">
                         {phrase.vietnamese.split(',')[0]}
                       </div>
                     </div>
                   </div>
-                  <Volume2 className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 shrink-0 ml-1" />
+                  <Volume2 className="w-3 h-3 text-slate-400 group-hover:text-cyan-500 shrink-0 ml-1" />
                 </button>
               ))}
             </div>

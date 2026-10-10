@@ -1,0 +1,29 @@
+{
+  "name": "VIETNAVI • Học Tiếng Việt Thực Chiến 360°",
+  "short_name": "VietNavi",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#0B0F17",
+  "theme_color": "#06B6D4",
+  "description": "Hệ sinh thái học Tiếng Việt thực chiến 360° dành cho người nước ngoài sinh sống và làm việc tại Việt Nam - DUY ANH LAB.",
+  "icons": [
+    {
+      "src": "/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

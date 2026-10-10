@@ -58,7 +58,7 @@ export const ToneWaveSimulator: React.FC = () => {
   };
 
   return (
-    <section id="demo" className="py-20 md:py-28 bg-[#0B0F17] relative">
+    <section id="tones" className="py-16 sm:py-24 bg-white dark:bg-[#0B0F17] relative transition-colors">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -69,11 +69,11 @@ export const ToneWaveSimulator: React.FC = () => {
             <span>{t('tones.section.badge')}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">
             {t('tones.title')}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             {t('tones.subtitle')}
           </p>
 
@@ -101,8 +101,8 @@ export const ToneWaveSimulator: React.FC = () => {
                 onClick={() => handlePlayTone(tone)}
                 className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between h-44 relative overflow-hidden group ${
                   isSelected
-                    ? 'bg-slate-900 border-2 shadow-xl'
-                    : 'bg-slate-900/50 hover:bg-slate-900/90 border-slate-800'
+                    ? 'bg-slate-50 dark:bg-slate-900 border-2 shadow-xl'
+                    : 'bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/90 border-slate-200 dark:border-slate-800'
                 }`}
                 style={{
                   borderColor: isSelected ? tone.color : undefined

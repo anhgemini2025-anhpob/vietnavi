@@ -27,6 +27,9 @@ export interface CountryApp {
   };
   videoThumbnail: string;
   tagColor: string;
+  logo?: string;
+  hasVideo?: boolean;
+  videoUrl?: string;
 }
 
 export interface ToneInfo {

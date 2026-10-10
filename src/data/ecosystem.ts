@@ -28,7 +28,9 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: '練乳アイスコーヒーを少なめの砂糖で1杯ください！'
     },
     videoThumbnail: '/brand/jp-thumb.jpg',
-    tagColor: 'from-rose-500/20 to-red-600/30'
+    tagColor: 'from-rose-500/20 to-red-600/30',
+    logo: '/brand/Japan.png',
+    hasVideo: false
   },
   {
     id: 'krviet',
@@ -144,7 +146,10 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: 'บุ๋นจ๋าจานนี้กินคู่กับน้ำปลาและผักสดใช่ไหมครับ?'
     },
     videoThumbnail: '/brand/th-thumb.jpg',
-    tagColor: 'from-emerald-500/20 to-teal-600/30'
+    tagColor: 'from-emerald-500/20 to-teal-600/30',
+    logo: '/brand/Thai.png',
+    hasVideo: true,
+    videoUrl: '/video/thviet-video.mp4'
   },
   {
     id: 'frviet',
