@@ -31,6 +31,31 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
+  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'zh'>('th');
+
+  const heroVideos = {
+    th: {
+      url: '/video/thviet-video.mp4',
+      labelVi: '🇹🇭 Clip App THViet (Thái Lan)',
+      labelEn: '🇹🇭 THViet Clip (Thailand)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI THÁI HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: THAIVIET LEARNING APP'
+    },
+    jp: {
+      url: '/video/jpviet-video.mp4',
+      labelVi: '🇯🇵 Clip App JPViet (Nhật Bản)',
+      labelEn: '🇯🇵 JPViet Clip (Japan)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI NHẬT HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: JPVIET LEARNING APP'
+    },
+    zh: {
+      url: '/video/zhviet-video.mp4',
+      labelVi: '🇨🇳 Clip App ZHViet (Trung Quốc)',
+      labelEn: '🇨🇳 ZHViet Clip (China)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI HOA HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: ZHVIET LEARNING APP'
+    }
+  };
 
   const quickPhrases = SURVIVAL_PHRASES.slice(0, 5);
 
@@ -153,15 +178,41 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Video Player Box (Vietreal 360° & ThaiViet Real Video 35s) */}
+        {/* Video Player Box (THViet, JPViet, ZHViet Real Video Clips) */}
         <div className="mt-10 sm:mt-14 max-w-4xl mx-auto">
+          
+          {/* Video App Selector Pills above player */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+            {(['th', 'jp', 'zh'] as const).map((key) => {
+              const isSelected = heroVideoApp === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => {
+                    setHeroVideoApp(key);
+                    setIsPlayingHeroVideo(true);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50'
+                  }`}
+                >
+                  <Video className="w-3.5 h-3.5" />
+                  <span>{language === 'vi' ? heroVideos[key].labelVi : heroVideos[key].labelEn}</span>
+                </button>
+              );
+            })}
+          </div>
+
           <div className="relative rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-cyan-500/20 via-slate-800/40 to-emerald-500/20 border border-cyan-500/30 shadow-2xl overflow-hidden group">
             
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
               
               {isPlayingHeroVideo ? (
                 <video
-                  src="/video/thviet-video.mp4"
+                  key={heroVideos[heroVideoApp].url}
+                  src={heroVideos[heroVideoApp].url}
                   controls
                   autoPlay
                   playsInline
@@ -179,26 +230,26 @@ export const Hero: React.FC<HeroProps> = ({
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                       </div>
                       <span className="text-[11px] font-mono text-cyan-300 font-semibold truncate">
-                        THAIVIET &amp; VIETREAL 360° Real-World Demo
+                        {heroVideoApp.toUpperCase()}VIET &amp; VIETREAL 360° Real-World Demo
                       </span>
                     </div>
 
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-[11px] font-mono font-bold">
                       <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                      <span>35s Video Live</span>
+                      <span>Official Video Clip</span>
                     </div>
                   </div>
 
                   {/* Center Call to Action */}
                   <div className="my-auto text-center space-y-3">
                     <span className="inline-block text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold">
-                      {language === 'vi' ? 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI THÁI HỌC TIẾNG VIỆT' : 'REAL DEMO: THAIVIET LEARNING APP'}
+                      {language === 'vi' ? heroVideos[heroVideoApp].badgeVi : heroVideos[heroVideoApp].badgeEn}
                     </span>
                     <h3 className="text-lg sm:text-2xl font-extrabold text-white">
-                      {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video 360°' : 'Interactive Street Scenarios & Phonetic Video Tour'}
+                      {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video Giới Thiệu' : 'Interactive Street Scenarios & Phonetic Video Tour'}
                     </h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto hidden sm:block">
-                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (35 giây).' : 'Click play below to watch the official 35-second demo video.'}
+                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
                     </p>
                   </div>
 
@@ -214,12 +265,11 @@ export const Hero: React.FC<HeroProps> = ({
                   </div>
 
                   {/* Bottom bar */}
-                  <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400">
-                    <span className="text-cyan-400">● Video thực tế: THAIVIET</span>
-                    <span className="text-slate-400 hidden sm:inline">Các ngôn ngữ khác: Đang ghi hình &amp; phát triển</span>
+                  <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400 relative z-10">
+                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • ZHViet</span>
                     <button
                       onClick={onOpenVideoTour}
-                      className="text-emerald-400 hover:underline flex items-center gap-1 font-bold"
+                      className="text-emerald-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"
                     >
                       <span>Mở phòng mô phỏng 360°</span>
                       <ArrowRight className="w-3 h-3" />

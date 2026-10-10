@@ -30,7 +30,8 @@ export const COUNTRY_APPS: CountryApp[] = [
     videoThumbnail: '/brand/jp-thumb.jpg',
     tagColor: 'from-rose-500/20 to-red-600/30',
     logo: '/brand/Japan.png',
-    hasVideo: false
+    hasVideo: true,
+    videoUrl: '/video/jpviet-video.mp4'
   },
   {
     id: 'krviet',
@@ -117,7 +118,9 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: '这批货物什么时候可以送到平阳仓库？'
     },
     videoThumbnail: '/brand/zh-thumb.jpg',
-    tagColor: 'from-amber-500/20 to-red-600/30'
+    tagColor: 'from-amber-500/20 to-red-600/30',
+    hasVideo: true,
+    videoUrl: '/video/zhviet-video.mp4'
   },
   {
     id: 'thviet',

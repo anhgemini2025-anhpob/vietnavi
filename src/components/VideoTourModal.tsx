@@ -10,11 +10,17 @@ interface VideoTourModalProps {
 
 export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
-  const [mode, setMode] = useState<'video' | 'simulation'>('video');
+  const [mode, setMode] = useState<'th' | 'jp' | 'zh' | 'simulation'>('th');
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const videoClips: Record<'th' | 'jp' | 'zh', { url: string; label: string }> = {
+    th: { url: '/video/thviet-video.mp4', label: '🇹🇭 THViet (35s)' },
+    jp: { url: '/video/jpviet-video.mp4', label: '🇯🇵 JPViet Clip' },
+    zh: { url: '/video/zhviet-video.mp4', label: '🇨🇳 ZHViet Clip' }
+  };
 
   const scenes = [
     {
@@ -67,41 +73,42 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3.5 bg-slate-900/90 border-b border-slate-800">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="flex h-3 w-3 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
             </span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">
-                THAIVIET 35S DEMO • VIETREAL 360°
-              </span>
-            </div>
+            <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">
+              VIDEO SHOWCASE • VIETREAL 360°
+            </span>
 
             {/* Mode Switcher Tabs */}
-            <div className="hidden sm:flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 ml-3">
-              <button
-                onClick={() => setMode('video')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                  mode === 'video'
-                    ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Video className="w-3.5 h-3.5" />
-                <span>Video Thực Tế (35s)</span>
-              </button>
+            <div className="flex flex-wrap items-center gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
+              {(['th', 'jp', 'zh'] as const).map((k) => (
+                <button
+                  key={k}
+                  onClick={() => setMode(k)}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                    mode === k
+                      ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Video className="w-3 h-3" />
+                  <span>{videoClips[k].label}</span>
+                </button>
+              ))}
               <button
                 onClick={() => setMode('simulation')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
                   mode === 'simulation'
                     ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <Radio className="w-3.5 h-3.5" />
-                <span>Mô Phỏng Nhập Vai 360°</span>
+                <Radio className="w-3 h-3" />
+                <span>360° Sim</span>
               </button>
             </div>
           </div>
@@ -117,11 +124,12 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
         {/* 16:9 Video Canvas Area */}
         <div className="relative aspect-video w-full bg-gradient-to-br from-slate-950 via-[#0B0F17] to-cyan-950/40 flex items-center justify-center overflow-hidden">
           
-          {mode === 'video' ? (
+          {mode !== 'simulation' ? (
             /* Real Video Player */
             <video
+              key={videoClips[mode].url}
               ref={videoRef}
-              src="/video/thviet-video.mp4"
+              src={videoClips[mode].url}
               controls
               autoPlay
               playsInline

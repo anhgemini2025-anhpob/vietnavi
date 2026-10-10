@@ -300,16 +300,17 @@ export const EcosystemMatrix: React.FC<EcosystemMatrixProps> = ({ onOpenVideoTou
                 </h4>
 
                 {activeApp.hasVideo && activeApp.videoUrl ? (
-                  /* ThaiViet Live Video Player */
+                  /* Official Live Video Player */
                   <div className="relative rounded-2xl overflow-hidden aspect-video bg-black border border-cyan-500/40 shadow-lg group">
                     <video
+                      key={activeApp.videoUrl}
                       src={activeApp.videoUrl}
                       controls
                       playsInline
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-emerald-400 border border-emerald-500/30">
-                      ● ThaiViet 35s Official
+                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-emerald-400 border border-emerald-500/30 pointer-events-none">
+                      ● {activeApp.code.toUpperCase()}Viet Official Video
                     </div>
                   </div>
                 ) : (
