@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { X, Play, Pause, Volume2, VolumeX, Maximize2, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
+import { X, Play, Pause, Volume2, VolumeX, Sparkles, CheckCircle2, RotateCcw, Video, Radio } from 'lucide-react';
 import { playToneByName } from '../utils/audioSynthesizer';
 
 interface VideoTourModalProps {
@@ -10,9 +10,11 @@ interface VideoTourModalProps {
 
 export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
+  const [mode, setMode] = useState<'video' | 'simulation'>('video');
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const scenes = [
     {
@@ -42,7 +44,7 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
   ];
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || mode !== 'simulation') return;
     const interval = setInterval(() => {
       if (isPlaying) {
         setCurrentScene((prev) => (prev + 1) % scenes.length);
@@ -52,32 +54,56 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
       }
     }, 5000);
     return () => clearInterval(interval);
-  }, [isOpen, isPlaying, isMuted, scenes.length]);
+  }, [isOpen, isPlaying, isMuted, mode, scenes.length]);
 
   if (!isOpen) return null;
 
   const current = scenes[currentScene];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in">
       <div 
         className="relative w-full max-w-4xl bg-[#090D16] border border-cyan-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <span className="flex h-3 w-3 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
             </span>
-            <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">
-              VIETREAL 360° LIVE SIMULATION
-            </span>
-            <span className="text-xs text-slate-500 hidden sm:inline">•</span>
-            <span className="text-xs text-slate-400 hidden sm:inline">
-              {language === 'vi' ? 'Trải nghiệm nhập vai đường phố Việt Nam' : 'Immersive Expat Street Experience'}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">
+                VIETREAL 360° MEDIA SHOWCASE
+              </span>
+            </div>
+
+            {/* Mode Switcher Tabs */}
+            <div className="hidden sm:flex items-center gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800 ml-3">
+              <button
+                onClick={() => setMode('video')}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  mode === 'video'
+                    ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Video className="w-3.5 h-3.5" />
+                <span>Video Thực Tế (35s)</span>
+              </button>
+              <button
+                onClick={() => setMode('simulation')}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  mode === 'simulation'
+                    ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Radio className="w-3.5 h-3.5" />
+                <span>Mô Phỏng Nhập Vai 360°</span>
+              </button>
+            </div>
           </div>
 
           <button
@@ -91,87 +117,97 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
         {/* 16:9 Video Canvas Area */}
         <div className="relative aspect-video w-full bg-gradient-to-br from-slate-950 via-[#0B0F17] to-cyan-950/40 flex items-center justify-center overflow-hidden">
           
-          {/* Animated Background Grid & Particles */}
-          <div className="absolute inset-0 bg-[radial-gradient(#06b6d4_1px,transparent_1px)] [background-size:24px_24px] opacity-15" />
-          
-          {/* Street Scene Simulation Visual */}
-          <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 sm:p-10">
-            
-            {/* Top Bar inside Video */}
-            <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-cyan-500/30 text-xs text-cyan-300 font-mono">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{current.tag}</span>
-              </div>
+          {mode === 'video' ? (
+            /* Real Video Player */
+            <video
+              ref={videoRef}
+              src="/video/thviet-video.mp4"
+              controls
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            /* Interactive Simulation Mode */
+            <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 sm:p-10">
+              
+              {/* Top Bar inside Video */}
+              <div className="flex items-center justify-between">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-cyan-500/30 text-xs text-cyan-300 font-mono">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{current.tag}</span>
+                </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setIsMuted(!isMuted)}
-                  className="p-2 rounded-full bg-black/60 border border-slate-700 text-slate-300 hover:text-cyan-400 transition-colors"
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-                </button>
-                <div className="px-2.5 py-1 rounded bg-black/70 border border-slate-800 text-[11px] font-mono text-emerald-400">
-                  HD 1080p
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsMuted(!isMuted)}
+                    className="p-2 rounded-full bg-black/60 border border-slate-700 text-slate-300 hover:text-cyan-400 transition-colors"
+                  >
+                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                  </button>
+                  <div className="px-2.5 py-1 rounded bg-black/70 border border-slate-800 text-[11px] font-mono text-emerald-400">
+                    HD 1080p
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Center Dynamic Tone Wave Overlay */}
-            <div className="my-auto text-center max-w-2xl mx-auto space-y-4">
-              <div className="text-xs font-mono text-slate-400 tracking-widest uppercase">
-                {language === 'vi' ? current.titleVi : current.titleEn}
+              {/* Center Dynamic Tone Wave Overlay */}
+              <div className="my-auto text-center max-w-2xl mx-auto space-y-4">
+                <div className="text-xs font-mono text-slate-400 tracking-widest uppercase">
+                  {language === 'vi' ? current.titleVi : current.titleEn}
+                </div>
+
+                {/* Speech Subtitles with Neon Glow */}
+                <div className="p-4 rounded-2xl bg-black/75 backdrop-blur-md border border-cyan-500/40 shadow-xl shadow-cyan-950/40">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-emerald-300">
+                    "{current.vietnamese}"
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-300 mt-2 font-medium">
+                    🇬🇧 {current.english}
+                  </p>
+                </div>
+
+                {/* Pitch waveform indicator */}
+                <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs text-cyan-300 font-mono">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                  <span>Pitch Wave: {current.pitch}</span>
+                </div>
               </div>
 
-              {/* Speech Subtitles with Neon Glow */}
-              <div className="p-4 rounded-2xl bg-black/75 backdrop-blur-md border border-cyan-500/40 shadow-xl shadow-cyan-950/40">
-                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-emerald-300">
-                  "{current.vietnamese}"
-                </p>
-                <p className="text-xs sm:text-sm text-slate-300 mt-2 font-medium">
-                  🇬🇧 {current.english}
-                </p>
-              </div>
-
-              {/* Pitch waveform indicator */}
-              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs text-cyan-300 font-mono">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-                <span>Pitch Wave: {current.pitch}</span>
-              </div>
-            </div>
-
-            {/* Bottom Controls Bar inside Video */}
-            <div className="flex items-center justify-between pt-4 border-t border-white/10">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/30 cursor-pointer"
-                >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                </button>
-                <button
-                  onClick={() => setCurrentScene((prev) => (prev + 1) % scenes.length)}
-                  className="p-2 rounded-xl bg-black/60 hover:bg-black/90 border border-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer text-xs flex items-center gap-1.5"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">{language === 'vi' ? 'Đổi tình huống' : 'Next Scene'}</span>
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {scenes.map((_, idx) => (
+              {/* Bottom Controls Bar inside Video */}
+              <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                <div className="flex items-center gap-3">
                   <button
-                    key={idx}
-                    onClick={() => setCurrentScene(idx)}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      currentScene === idx ? 'w-6 bg-cyan-400' : 'w-2 bg-slate-700 hover:bg-slate-500'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="p-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/30 cursor-pointer"
+                  >
+                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  </button>
+                  <button
+                    onClick={() => setCurrentScene((prev) => (prev + 1) % scenes.length)}
+                    className="p-2 rounded-xl bg-black/60 hover:bg-black/90 border border-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer text-xs flex items-center gap-1.5"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{language === 'vi' ? 'Đổi tình huống' : 'Next Scene'}</span>
+                  </button>
+                </div>
 
-          </div>
+                <div className="flex items-center gap-2">
+                  {scenes.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentScene(idx)}
+                      className={`h-2 rounded-full transition-all cursor-pointer ${
+                        currentScene === idx ? 'w-6 bg-cyan-400' : 'w-2 bg-slate-700 hover:bg-slate-500'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          )}
+
         </div>
 
         {/* Footer Info */}
@@ -180,8 +216,8 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>
               {language === 'vi' 
-                ? 'Hệ thống AI tự động ngắt câu và phân tích tần số giọng người học.' 
-                : 'AI engine breaks speech into syllables and matches pitch frequencies in real time.'}
+                ? 'Hệ thống tự động phát hiện khẩu hình và phân tích cao độ giọng người học.' 
+                : 'AI engine analyzes pitch frequencies and phonetic articulation in real time.'}
             </span>
           </div>
 
