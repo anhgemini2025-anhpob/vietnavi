@@ -19,7 +19,7 @@ https://ruviet.vercel.app/
 APP NGƯỜI CAMBODIA HỌC TIẾNG VIỆT
 https://khviet.vercel.app/
 APP LÀO HỌC TIẾNG VIỆT
-https://laviet.vercel.app/
+https://laoviet.vercel.app/
 APP ẤN HỌC TIẾNG VIỆT
 https://inviet.vercel.app/
 APP TÂY BAN NHA HỌC TIẾNG VIỆT

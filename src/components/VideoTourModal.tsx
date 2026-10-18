@@ -10,16 +10,17 @@ interface VideoTourModalProps {
 
 export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
-  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'zh' | 'simulation'>('th');
+  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'simulation'>('th');
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const videoClips: Record<'th' | 'jp' | 'kr' | 'zh', { url: string; label: string }> = {
+  const videoClips: Record<'th' | 'jp' | 'kr' | 'la' | 'zh', { url: string; label: string }> = {
     th: { url: '/video/thviet-video.mp4', label: '🇹🇭 THViet (35s)' },
     jp: { url: '/video/jpviet-video.mp4', label: '🇯🇵 JPViet Clip' },
     kr: { url: '/video/krviet-video.mp4', label: '🇰🇷 KRViet Clip' },
+    la: { url: 'https://www.youtube.com/watch?v=bKhv0hFiiQo', label: '🇱🇦 LaoViet Clip' },
     zh: { url: '/video/zhviet-video.mp4', label: '🇨🇳 ZHViet Clip' }
   };
 
@@ -86,7 +87,7 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
 
             {/* Mode Switcher Tabs */}
             <div className="flex flex-wrap items-center gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
-              {(['th', 'jp', 'kr', 'zh'] as const).map((k) => (
+              {(['th', 'jp', 'kr', 'la', 'zh'] as const).map((k) => (
                 <button
                   key={k}
                   onClick={() => setMode(k)}
@@ -127,15 +128,28 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
           
           {mode !== 'simulation' ? (
             /* Real Video Player */
-            <video
-              key={videoClips[mode].url}
-              ref={videoRef}
-              src={videoClips[mode].url}
-              controls
-              autoPlay
-              playsInline
-              className="w-full h-full object-cover"
-            />
+            videoClips[mode].url.includes('youtube.com') || videoClips[mode].url.includes('youtu.be') ? (
+              <iframe
+                key={videoClips[mode].url}
+                src={`https://www.youtube.com/embed/${
+                  videoClips[mode].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
+                }?autoplay=1&rel=0`}
+                title={videoClips[mode].label}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+              />
+            ) : (
+              <video
+                key={videoClips[mode].url}
+                ref={videoRef}
+                src={videoClips[mode].url}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            )
           ) : (
             /* Interactive Simulation Mode */
             <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 sm:p-10">
@@ -225,8 +239,8 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>
               {language === 'vi' 
-                ? 'Video chính thức hiện có: THViet, JPViet, KRViet, ZHViet. Các ngôn ngữ khác đang tiếp tục cập nhật.' 
-                : 'Official Videos Available: THViet, JPViet, KRViet, ZHViet. Videos for other language apps are in development.'}
+                ? 'Video chính thức hiện có: THViet, JPViet, KRViet, LaoViet, ZHViet. Các ngôn ngữ khác đang tiếp tục cập nhật.' 
+                : 'Official Videos Available: THViet, JPViet, KRViet, LaoViet, ZHViet. Videos for other language apps are in development.'}
             </span>
           </div>
 

@@ -282,7 +282,7 @@ export const COUNTRY_APPS: CountryApp[] = [
     nativeSubtitle: 'ຮຽນພາສາຫວຽດນາມຕົວຈິງ ສໍາລັບການຮຽນ ແລະ ການເຮັດວຽກ',
     subtitleVi: 'App Người Lào học tiếng Việt',
     subtitleEn: 'Vietnamese for Lao Students & Expats',
-    url: 'https://laviet.vercel.app/',
+    url: 'https://laoviet.vercel.app/',
     region: 'Asia',
     nativeTeaser: 'ປຽບທຽບສຳນຽງລາວ-ຫວຽດຢ່າງໃກ້ຊິດ. ຝຶກຝົນການສື່ສານປະຈຳວັນ, ການສຶກສາ ແລະ ການຄ້າຂ້າມແດນຢ່າງໝັ້ນໃຈ.',
     keyFeatures: [
@@ -299,7 +299,9 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: 'ສະບາຍດີອາຈານ, ມື້ນີ້ຂ້ອຍຢາກຂໍອະນຸຍາດສົ່ງບົດຝຶກຫັດ!'
     },
     videoThumbnail: '/brand/la-thumb.jpg',
-    tagColor: 'from-blue-500/20 to-rose-600/30'
+    tagColor: 'from-blue-500/20 to-rose-600/30',
+    hasVideo: true,
+    videoUrl: 'https://www.youtube.com/watch?v=bKhv0hFiiQo'
   },
   {
     id: 'inviet',

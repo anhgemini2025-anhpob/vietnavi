@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
-  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'zh'>('th');
+  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh'>('th');
 
   const heroVideos = {
     th: {
@@ -54,6 +54,13 @@ export const Hero: React.FC<HeroProps> = ({
       labelEn: '🇰🇷 KRViet Clip (South Korea)',
       badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI HÀN HỌC TIẾNG VIỆT',
       badgeEn: 'REAL DEMO: KRVIET LEARNING APP'
+    },
+    la: {
+      url: 'https://www.youtube.com/watch?v=bKhv0hFiiQo',
+      labelVi: '🇱🇦 Clip App LaoViet (Lào)',
+      labelEn: '🇱🇦 LaoViet Clip (Laos)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI LÀO HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: LAOVIET LEARNING APP'
     },
     zh: {
       url: '/video/zhviet-video.mp4',
@@ -185,12 +192,12 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Video Player Box (THViet, JPViet, KRViet, ZHViet Real Video Clips) */}
+        {/* Video Player Box (THViet, JPViet, KRViet, LaoViet, ZHViet Real Video Clips) */}
         <div className="mt-10 sm:mt-14 max-w-4xl mx-auto">
           
           {/* Video App Selector Pills above player */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-            {(['th', 'jp', 'kr', 'zh'] as const).map((key) => {
+            {(['th', 'jp', 'kr', 'la', 'zh'] as const).map((key) => {
               const isSelected = heroVideoApp === key;
               return (
                 <button
@@ -217,14 +224,27 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
               
               {isPlayingHeroVideo ? (
-                <video
-                  key={heroVideos[heroVideoApp].url}
-                  src={heroVideos[heroVideoApp].url}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
+                heroVideos[heroVideoApp].url.includes('youtube.com') || heroVideos[heroVideoApp].url.includes('youtu.be') ? (
+                  <iframe
+                    key={heroVideos[heroVideoApp].url}
+                    src={`https://www.youtube.com/embed/${
+                      heroVideos[heroVideoApp].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
+                    }?autoplay=1&rel=0`}
+                    title="Hero Video Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                  />
+                ) : (
+                  <video
+                    key={heroVideos[heroVideoApp].url}
+                    src={heroVideos[heroVideoApp].url}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                )
               ) : (
                 <div className="w-full h-full relative flex flex-col justify-between p-5 sm:p-8 bg-gradient-to-tr from-[#080D18] via-[#0D1526] to-[#0A1A24]">
                   
@@ -237,7 +257,7 @@ export const Hero: React.FC<HeroProps> = ({
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                       </div>
                       <span className="text-[11px] font-mono text-cyan-300 font-semibold truncate">
-                        {heroVideoApp.toUpperCase()}VIET &amp; VIETREAL 360° Real-World Demo
+                        {heroVideoApp === 'la' ? 'LAOVIET' : `${heroVideoApp.toUpperCase()}VIET`} &amp; VIETREAL 360° Real-World Demo
                       </span>
                     </div>
 
@@ -256,7 +276,7 @@ export const Hero: React.FC<HeroProps> = ({
                       {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video Giới Thiệu' : 'Interactive Street Scenarios & Phonetic Video Tour'}
                     </h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto hidden sm:block">
-                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, KRViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
+                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, KRViet, LaoViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
                     </p>
                   </div>
 
@@ -273,7 +293,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                   {/* Bottom bar */}
                   <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400 relative z-10">
-                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • KRViet • ZHViet</span>
+                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • KRViet • LaoViet • ZHViet</span>
                     <button
                       onClick={onOpenVideoTour}
                       className="text-emerald-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"

@@ -302,15 +302,28 @@ export const EcosystemMatrix: React.FC<EcosystemMatrixProps> = ({ onOpenVideoTou
                 {activeApp.hasVideo && activeApp.videoUrl ? (
                   /* Official Live Video Player */
                   <div className="relative rounded-2xl overflow-hidden aspect-video bg-black border border-cyan-500/40 shadow-lg group">
-                    <video
-                      key={activeApp.videoUrl}
-                      src={activeApp.videoUrl}
-                      controls
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
+                    {activeApp.videoUrl.includes('youtube.com') || activeApp.videoUrl.includes('youtu.be') ? (
+                      <iframe
+                        key={activeApp.videoUrl}
+                        src={`https://www.youtube.com/embed/${
+                          activeApp.videoUrl.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
+                        }?rel=0`}
+                        title={`${activeApp.subtitleVi} Demo Video`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="w-full h-full border-0"
+                      />
+                    ) : (
+                      <video
+                        key={activeApp.videoUrl}
+                        src={activeApp.videoUrl}
+                        controls
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                     <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-emerald-400 border border-emerald-500/30 pointer-events-none">
-                      ● {activeApp.code.toUpperCase()}Viet Official Video
+                      ● {activeApp.code === 'la' ? 'LaoViet' : `${activeApp.code.toUpperCase()}Viet`} Official Video
                     </div>
                   </div>
                 ) : (

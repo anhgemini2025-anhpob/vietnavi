@@ -38,7 +38,7 @@ Dự án Landing Page song ngữ (Tiếng Việt & Tiếng Anh) cao cấp giới
 | 7 | Vietnamesisch im Alltag | 🇩🇪 Đức | [deviet.vercel.app](https://deviet.vercel.app/) |
 | 8 | Вьетнамский язык для жизни | 🇷🇺 Nga | [ruviet.vercel.app](https://ruviet.vercel.app/) |
 | 9 | ភាសាវៀតណាមសម្រាប់ជនជាតិខ្មែរ | 🇰🇭 Campuchia | [khviet.vercel.app](https://khviet.vercel.app/) |
-| 10 | ພາສາຫວຽດສຳລັບຄົນລາວ | 🇱🇦 Lào | [laviet.vercel.app](https://laviet.vercel.app/) |
+| 10 | ພາສາຫວຽດສຳລັບຄົນລາວ | 🇱🇦 Lào | [laoviet.vercel.app](https://laoviet.vercel.app/) |
 | 11 | Vietnamese for Expats from India | 🇮🇳 Ấn Độ | [inviet.vercel.app](https://inviet.vercel.app/) |
 | 12 | Vietnamita Práctico | 🇪🇸 Tây Ban Nha & Mỹ Latinh | [esviet.vercel.app](https://esviet.vercel.app/) |
 | 13 | Vietnamita para Lusófonos | 🇵🇹 Bồ Đào Nha & Brazil | [ptviet.vercel.app](https://ptviet.vercel.app/) |
