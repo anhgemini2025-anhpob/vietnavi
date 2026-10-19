@@ -10,18 +10,19 @@ interface VideoTourModalProps {
 
 export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
-  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'simulation'>('th');
+  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh' | 'simulation'>('th');
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const videoClips: Record<'th' | 'jp' | 'kr' | 'la' | 'zh', { url: string; label: string }> = {
+  const videoClips: Record<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh', { url: string; label: string }> = {
     th: { url: '/video/thviet-video.mp4', label: '🇹🇭 THViet (35s)' },
     jp: { url: '/video/jpviet-video.mp4', label: '🇯🇵 JPViet Clip' },
     kr: { url: '/video/krviet-video.mp4', label: '🇰🇷 KRViet Clip' },
     la: { url: 'https://www.youtube.com/watch?v=bKhv0hFiiQo', label: '🇱🇦 LaoViet Clip' },
-    zh: { url: '/video/zhviet-video.mp4', label: '🇨🇳 ZHViet Clip' }
+    zh: { url: '/video/zhviet-video.mp4', label: '🇨🇳 ZHViet Clip' },
+    kh: { url: '', label: '🇰🇭 KHViet Clip' }
   };
 
   const scenes = [
@@ -87,7 +88,7 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
 
             {/* Mode Switcher Tabs */}
             <div className="flex flex-wrap items-center gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
-              {(['th', 'jp', 'kr', 'la', 'zh'] as const).map((k) => (
+              {(['th', 'jp', 'kr', 'la', 'zh', 'kh'] as const).map((k) => (
                 <button
                   key={k}
                   onClick={() => setMode(k)}
@@ -128,27 +129,55 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
           
           {mode !== 'simulation' ? (
             /* Real Video Player */
-            videoClips[mode].url.includes('youtube.com') || videoClips[mode].url.includes('youtu.be') ? (
-              <iframe
-                key={videoClips[mode].url}
-                src={`https://www.youtube.com/embed/${
-                  videoClips[mode].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
-                }?autoplay=1&rel=0`}
-                title={videoClips[mode].label}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+            videoClips[mode].url ? (
+              videoClips[mode].url.includes('youtube.com') || videoClips[mode].url.includes('youtu.be') ? (
+                <iframe
+                  key={videoClips[mode].url}
+                  src={`https://www.youtube.com/embed/${
+                    videoClips[mode].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
+                  }?autoplay=1&rel=0`}
+                  title={videoClips[mode].label}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <video
+                  key={videoClips[mode].url}
+                  ref={videoRef}
+                  src={videoClips[mode].url}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              )
             ) : (
-              <video
-                key={videoClips[mode].url}
-                ref={videoRef}
-                src={videoClips[mode].url}
-                controls
-                autoPlay
-                playsInline
-                className="w-full h-full object-cover"
-              />
+              /* Reserved YouTube slot for KHViet */
+              <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-tr from-[#160A10] via-[#0E1524] to-[#0A1624] space-y-3">
+                <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
+                  <Video className="w-7 h-7 text-red-400 animate-pulse" />
+                </div>
+                <div>
+                  <span className="inline-block px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 font-mono text-xs font-bold uppercase tracking-wider">
+                    KhmerViet • Sẵn Sàng Cổng Nhúng Video YouTube
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white mt-2">
+                    Clip Giới Thiệu App Người Khmer Học Tiếng Việt
+                  </h3>
+                  <p className="text-xs text-slate-300 max-w-md mx-auto mt-1 leading-relaxed">
+                    Khu vực này đã được chừa sẵn để đính video clip YouTube. Ứng dụng Web PWA đã chính thức hoạt động tại khviet.vercel.app.
+                  </p>
+                </div>
+                <a
+                  href="https://khviet.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-500 via-amber-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-lg hover:brightness-110 transition-all cursor-pointer"
+                >
+                  <span>Khám Phá App KhmerViet (khviet.vercel.app)</span>
+                </a>
+              </div>
             )
           ) : (
             /* Interactive Simulation Mode */
@@ -239,8 +268,8 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>
               {language === 'vi' 
-                ? 'Video chính thức hiện có: THViet, JPViet, KRViet, LaoViet, ZHViet. Các ngôn ngữ khác đang tiếp tục cập nhật.' 
-                : 'Official Videos Available: THViet, JPViet, KRViet, LaoViet, ZHViet. Videos for other language apps are in development.'}
+                ? 'Video chính thức hiện có: THViet, JPViet, KRViet, LaoViet, ZHViet & KHViet (sẵn sàng cổng YouTube).' 
+                : 'Official Videos: THViet, JPViet, KRViet, LaoViet, ZHViet & KHViet (YouTube-ready).'}
             </span>
           </div>
 

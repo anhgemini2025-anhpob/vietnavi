@@ -16,7 +16,7 @@ APP NGƯỜI ĐỨC HỌC TIẾNG VIỆT
 https://deviet.vercel.app/
 APP NGƯỜI NGA HỌC TIẾNG VIỆT
 https://ruviet.vercel.app/
-APP NGƯỜI CAMBODIA HỌC TIẾNG VIỆT
+APP NGƯỜI KHMER (CAMPUCHIA) HỌC TIẾNG VIỆT
 https://khviet.vercel.app/
 APP LÀO HỌC TIẾNG VIỆT
 https://laoviet.vercel.app/

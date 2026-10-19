@@ -246,31 +246,34 @@ export const COUNTRY_APPS: CountryApp[] = [
   {
     id: 'khviet',
     code: 'kh',
-    countryNameVi: 'Campuchia',
-    countryNameEn: 'Cambodia',
+    countryNameVi: 'Khmer (Campuchia)',
+    countryNameEn: 'Cambodia (Khmer)',
     flag: '🇰🇭',
     nativeTitle: 'ភាសាវៀតណាមសម្រាប់ជនជាតិខ្មែរ',
-    nativeSubtitle: 'រៀនភាសាវៀតណាមអនុវត្តជាក់ស្តែងសម្រាប់ការរកស៊ី និងការរស់នៅ',
-    subtitleVi: 'App Người Campuchia học tiếng Việt',
-    subtitleEn: 'Vietnamese for Cambodian Expats & Traders',
+    nativeSubtitle: 'រៀនភាសាវៀតណាមអនុវត្តជាក់ស្តែងសម្រាប់ការរកស៊ី ការព្យាបាលជំងឺ និងការរស់នៅ',
+    subtitleVi: 'App Người Khmer học tiếng Việt (KhmerViet)',
+    subtitleEn: 'Vietnamese App for Khmer Speakers (KhmerViet)',
     url: 'https://khviet.vercel.app/',
     region: 'Asia',
-    nativeTeaser: 'រចនាឡើងសម្រាប់ពាណិជ្ជករ និស្សិត និងពលករបរទេស។ យល់ច្បាស់ពីសម្លេង និងការប្រើប្រាស់ពាក្យក្នុងជីវិតពិត។',
+    nativeTeaser: 'រចនាឡើងពិសេសសម្រាប់បងប្អូនខ្មែរ៖ ពាណិជ្ជករ អ្នកជំងឺមកព្យាបាលនៅវៀតណាម និស្សិត និងពលករ។ ជំនះឧបសគ្គ ៦ វណ្ណយុត្តិ និងសន្ទនាជាក់ស្តែង។',
     keyFeatures: [
-      { vi: 'Giao thương tiểu ngạch và vận tải logistics biên giới', en: 'Cross-border trading, wholesale and logistics vocabulary' },
-      { vi: 'Học tiếng Việt khám chữa bệnh tại các bệnh viện lớn TP.HCM', en: 'Medical consultation & healthcare visits in HCMC hospitals' },
-      { vi: 'Chuyển hóa ngữ điệu từ ngôn ngữ phi thanh điệu Khmer sang 6 thanh', en: 'Transitioning from non-tonal Khmer to 6 Vietnamese tones' }
+      { vi: 'Khám chữa bệnh tại các bệnh viện lớn TP.HCM (Chợ Rẫy, ĐHYD, Viện Tim, Ung Bướu)', en: 'Healthcare & medical visit dialogues at top HCMC hospitals' },
+      { vi: 'Giao thương tiểu ngạch, chợ đầu mối và vận tải logistics biên giới (Mộc Bài, Tịnh Biên)', en: 'Cross-border trading, wholesale market bargaining & logistics vocabulary' },
+      { vi: 'Chuyển hóa ngữ điệu từ ngôn ngữ phi thanh điệu Khmer sang làm chủ 6 thanh điệu Việt', en: 'Acoustic pitch bridge transitioning non-tonal Khmer to 6 Vietnamese tones' },
+      { vi: 'Luyện chuẩn các nguyên âm đôi (ươ, iê, uô) và phụ âm tắc họng (-c, -p, -t, -ch)', en: 'Mastering Vietnamese diphthongs and final consonant stops' }
     ],
     phoneticFocus: {
-      vi: 'Luyện tập các thanh âm cao và thanh dấu hỏi',
-      en: 'Tonal acoustic drills for Khmer native speakers'
+      vi: 'Khử thói quen bật hơi vô thanh, luyện cao độ 6 thanh điệu (Hỏi, Ngã, Nặng) & nguyên âm đôi',
+      en: 'Neutralizing Khmer breathiness, mastering 6 pitch contours (Hỏi, Ngã, Nặng) & double vowels'
     },
     samplePhrase: {
-      vi: 'Bác sĩ cho tôi hỏi thuốc này uống trước hay sau khi ăn?',
-      native: 'សូមសួរលោកគ្រូពេទ្យ ថ្នាំនេះត្រូវលេបមុន ឬក្រោយបាយ?'
+      vi: 'Bác sĩ ơi, thuốc này uống trước hay sau bữa ăn? Bao lâu thì tái khám ạ?',
+      native: 'លោកគ្រូពេទ្យ ថ្នាំនេះត្រូវលេបមុន ឬក្រោយបាយ? តើប៉ុន្មានថ្ងៃទៀតទើបមកពិនិត្យឡើងវិញ?'
     },
     videoThumbnail: '/brand/kh-thumb.jpg',
-    tagColor: 'from-red-500/20 to-blue-700/30'
+    tagColor: 'from-red-500/20 to-blue-700/30',
+    hasVideo: true,
+    videoUrl: '' // Chừa sẵn phần đính link YouTube (Ví dụ: https://www.youtube.com/watch?v=...)
   },
   {
     id: 'laviet',

@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
-  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh'>('th');
+  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh'>('th');
 
   const heroVideos = {
     th: {
@@ -68,6 +68,13 @@ export const Hero: React.FC<HeroProps> = ({
       labelEn: '🇨🇳 ZHViet Clip (China)',
       badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI HOA HỌC TIẾNG VIỆT',
       badgeEn: 'REAL DEMO: ZHVIET LEARNING APP'
+    },
+    kh: {
+      url: '', // Chừa sẵn phần đính link YouTube (Ví dụ: https://www.youtube.com/watch?v=...)
+      labelVi: '🇰🇭 Clip App KHViet (Khmer)',
+      labelEn: '🇰🇭 KHViet Clip (Khmer)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI KHMER HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: KHMERVIET LEARNING APP'
     }
   };
 
@@ -197,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({
           
           {/* Video App Selector Pills above player */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-            {(['th', 'jp', 'kr', 'la', 'zh'] as const).map((key) => {
+            {(['th', 'jp', 'kr', 'la', 'zh', 'kh'] as const).map((key) => {
               const isSelected = heroVideoApp === key;
               return (
                 <button
@@ -224,26 +231,55 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
               
               {isPlayingHeroVideo ? (
-                heroVideos[heroVideoApp].url.includes('youtube.com') || heroVideos[heroVideoApp].url.includes('youtu.be') ? (
-                  <iframe
-                    key={heroVideos[heroVideoApp].url}
-                    src={`https://www.youtube.com/embed/${
-                      heroVideos[heroVideoApp].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
-                    }?autoplay=1&rel=0`}
-                    title="Hero Video Demo"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full border-0"
-                  />
+                heroVideos[heroVideoApp].url ? (
+                  heroVideos[heroVideoApp].url.includes('youtube.com') || heroVideos[heroVideoApp].url.includes('youtu.be') ? (
+                    <iframe
+                      key={heroVideos[heroVideoApp].url}
+                      src={`https://www.youtube.com/embed/${
+                        heroVideos[heroVideoApp].url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/)?.[1] || 'bKhv0hFiiQo'
+                      }?autoplay=1&rel=0`}
+                      title="Hero Video Demo"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
+                  ) : (
+                    <video
+                      key={heroVideos[heroVideoApp].url}
+                      src={heroVideos[heroVideoApp].url}
+                      controls
+                      autoPlay
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  )
                 ) : (
-                  <video
-                    key={heroVideos[heroVideoApp].url}
-                    src={heroVideos[heroVideoApp].url}
-                    controls
-                    autoPlay
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
+                  /* Reserved YouTube slot for KHViet */
+                  <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-tr from-[#160A10] via-[#0E1524] to-[#0A1624] space-y-3">
+                    <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
+                      <Video className="w-7 h-7 text-red-400 animate-pulse" />
+                    </div>
+                    <div>
+                      <span className="inline-block px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 font-mono text-xs font-bold uppercase tracking-wider">
+                        KhmerViet • Sẵn Sàng Cổng Nhúng Video YouTube
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-extrabold text-white mt-2">
+                        Clip Giới Thiệu App Người Khmer Học Tiếng Việt
+                      </h3>
+                      <p className="text-xs text-slate-300 max-w-md mx-auto mt-1 leading-relaxed">
+                        Khu vực này đã được chừa sẵn để đính video clip YouTube. Ứng dụng Web PWA đã chính thức hoạt động tại khviet.vercel.app.
+                      </p>
+                    </div>
+                    <a
+                      href="https://khviet.vercel.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-500 via-amber-500 to-emerald-400 text-slate-950 font-bold text-xs shadow-lg hover:brightness-110 transition-all cursor-pointer"
+                    >
+                      <span>Khám Phá App KhmerViet (khviet.vercel.app)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 )
               ) : (
                 <div className="w-full h-full relative flex flex-col justify-between p-5 sm:p-8 bg-gradient-to-tr from-[#080D18] via-[#0D1526] to-[#0A1A24]">
@@ -257,13 +293,13 @@ export const Hero: React.FC<HeroProps> = ({
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                       </div>
                       <span className="text-[11px] font-mono text-cyan-300 font-semibold truncate">
-                        {heroVideoApp === 'la' ? 'LAOVIET' : `${heroVideoApp.toUpperCase()}VIET`} &amp; VIETREAL 360° Real-World Demo
+                        {heroVideoApp === 'la' ? 'LAOVIET' : heroVideoApp === 'kh' ? 'KHMERVIET' : `${heroVideoApp.toUpperCase()}VIET`} &amp; VIETREAL 360° Real-World Demo
                       </span>
                     </div>
 
                     <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-[11px] font-mono font-bold">
                       <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                      <span>Official Video Clip</span>
+                      <span>{heroVideoApp === 'kh' ? 'Reserved YouTube Slot' : 'Official Video Clip'}</span>
                     </div>
                   </div>
 
@@ -273,10 +309,14 @@ export const Hero: React.FC<HeroProps> = ({
                       {language === 'vi' ? heroVideos[heroVideoApp].badgeVi : heroVideos[heroVideoApp].badgeEn}
                     </span>
                     <h3 className="text-lg sm:text-2xl font-extrabold text-white">
-                      {language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video Giới Thiệu' : 'Interactive Street Scenarios & Phonetic Video Tour'}
+                      {heroVideoApp === 'kh' 
+                        ? 'KhmerViet — Dạy & Học Tiếng Việt Cho Người Khmer'
+                        : language === 'vi' ? 'Thực Hành Giao Tiếp Sống Động Cùng Video Giới Thiệu' : 'Interactive Street Scenarios & Phonetic Video Tour'}
                     </h3>
                     <p className="text-xs text-slate-400 max-w-md mx-auto hidden sm:block">
-                      {language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế (THViet, JPViet, KRViet, LaoViet, ZHViet).' : 'Click play below to watch the official promotional video clip.'}
+                      {heroVideoApp === 'kh'
+                        ? 'Chừa sẵn khu vực đính link YouTube. Bấm để mở cổng video hoặc truy cập thẳng Web PWA.'
+                        : language === 'vi' ? 'Bấm nút phát bên dưới để xem trực tiếp video quảng cáo thực tế.' : 'Click play below to watch the official promotional video clip.'}
                     </p>
                   </div>
 
@@ -293,7 +333,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                   {/* Bottom bar */}
                   <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] font-mono text-slate-400 relative z-10">
-                    <span className="text-cyan-400">● Video có sẵn: THViet • JPViet • KRViet • LaoViet • ZHViet</span>
+                    <span className="text-cyan-400">● Video: THViet • JPViet • KRViet • LaoViet • ZHViet • KHViet</span>
                     <button
                       onClick={onOpenVideoTour}
                       className="text-emerald-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"

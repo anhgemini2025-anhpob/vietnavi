@@ -323,7 +323,38 @@ export const EcosystemMatrix: React.FC<EcosystemMatrixProps> = ({ onOpenVideoTou
                       />
                     )}
                     <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-emerald-400 border border-emerald-500/30 pointer-events-none">
-                      ● {activeApp.code === 'la' ? 'LaoViet' : `${activeApp.code.toUpperCase()}Viet`} Official Video
+                      ● {activeApp.code === 'la' ? 'LaoViet' : activeApp.code === 'kh' ? 'KhmerViet' : `${activeApp.code.toUpperCase()}Viet`} Official Video
+                    </div>
+                  </div>
+                ) : activeApp.hasVideo ? (
+                  /* Reserved YouTube Video Section ready for link (KhmerViet) */
+                  <div className="relative rounded-2xl aspect-video bg-gradient-to-br from-slate-950 via-[#121624] to-red-950/30 border-2 border-dashed border-red-500/50 flex flex-col items-center justify-center p-6 text-center space-y-3 shadow-lg group">
+                    <div className="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                      <Video className="w-6 h-6 text-red-400 animate-pulse" />
+                    </div>
+                    <div>
+                      <span className="inline-block px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 font-mono text-xs font-bold uppercase tracking-wider">
+                        KhmerViet • Sẵn Sàng Cổng Nhúng YouTube
+                      </span>
+                      <p className="text-xs text-slate-300 mt-2 max-w-sm mx-auto leading-relaxed">
+                        {language === 'vi' 
+                          ? 'Khu vực video demo app Người Khmer học tiếng Việt đã được chừa sẵn. Khi bạn gắn link YouTube vào, clip sẽ tự động phát tại đây.' 
+                          : 'Dedicated YouTube video slot for KhmerViet app is reserved and ready to embed.'}
+                      </p>
+                    </div>
+                    <div className="pt-1 flex flex-wrap items-center justify-center gap-2">
+                      <span className="text-[11px] font-mono text-cyan-400">
+                        {language === 'vi' ? 'Đã có Web PWA trực tiếp:' : 'Live Web PWA available:'}
+                      </span>
+                      <a
+                        href={activeApp.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] font-mono font-bold text-amber-300 hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>{activeApp.url}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
                     </div>
                   </div>
                 ) : (
