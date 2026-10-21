@@ -323,7 +323,7 @@ export const EcosystemMatrix: React.FC<EcosystemMatrixProps> = ({ onOpenVideoTou
                       />
                     )}
                     <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-emerald-400 border border-emerald-500/30 pointer-events-none">
-                      ● {activeApp.code === 'la' ? 'LaoViet' : activeApp.code === 'kh' ? 'KhmerViet' : `${activeApp.code.toUpperCase()}Viet`} Official Video
+                      ● {activeApp.code === 'la' ? 'LaoViet' : activeApp.code === 'kh' ? 'KhmerViet' : activeApp.code === 'in' ? 'InViet' : `${activeApp.code.toUpperCase()}Viet`} Official Video
                     </div>
                   </div>
                 ) : activeApp.hasVideo ? (

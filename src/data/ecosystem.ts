@@ -333,7 +333,9 @@ export const COUNTRY_APPS: CountryApp[] = [
       native: 'Is this cooked with meat or fish sauce? I am strictly vegetarian.'
     },
     videoThumbnail: '/brand/in-thumb.jpg',
-    tagColor: 'from-orange-500/20 to-emerald-600/30'
+    tagColor: 'from-orange-500/20 to-emerald-600/30',
+    hasVideo: true,
+    videoUrl: 'https://www.youtube.com/watch?v=Vy9qnonnyWs'
   },
   {
     id: 'esviet',

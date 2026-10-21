@@ -10,18 +10,19 @@ interface VideoTourModalProps {
 
 export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose }) => {
   const { language } = useLanguage();
-  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh' | 'simulation'>('th');
+  const [mode, setMode] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh' | 'in' | 'simulation'>('th');
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [currentScene, setCurrentScene] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const videoClips: Record<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh', { url: string; label: string }> = {
+  const videoClips: Record<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh' | 'in', { url: string; label: string }> = {
     th: { url: '/video/thviet-video.mp4', label: '🇹🇭 THViet (35s)' },
     jp: { url: '/video/jpviet-video.mp4', label: '🇯🇵 JPViet Clip' },
     kr: { url: '/video/krviet-video.mp4', label: '🇰🇷 KRViet Clip' },
     la: { url: 'https://www.youtube.com/watch?v=bKhv0hFiiQo', label: '🇱🇦 LaoViet Clip' },
     zh: { url: '/video/zhviet-video.mp4', label: '🇨🇳 ZHViet Clip' },
+    in: { url: 'https://www.youtube.com/watch?v=Vy9qnonnyWs', label: '🇮🇳 InViet Clip' },
     kh: { url: '', label: '🇰🇭 KHViet Clip' }
   };
 
@@ -88,7 +89,7 @@ export const VideoTourModal: React.FC<VideoTourModalProps> = ({ isOpen, onClose 
 
             {/* Mode Switcher Tabs */}
             <div className="flex flex-wrap items-center gap-1 p-1 rounded-xl bg-slate-950 border border-slate-800">
-              {(['th', 'jp', 'kr', 'la', 'zh', 'kh'] as const).map((k) => (
+              {(['th', 'jp', 'kr', 'la', 'zh', 'in', 'kh'] as const).map((k) => (
                 <button
                   key={k}
                   onClick={() => setMode(k)}

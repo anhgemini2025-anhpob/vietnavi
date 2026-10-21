@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const { language, t } = useLanguage();
   const [isPlayingHeroVideo, setIsPlayingHeroVideo] = useState(false);
-  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh'>('th');
+  const [heroVideoApp, setHeroVideoApp] = useState<'th' | 'jp' | 'kr' | 'la' | 'zh' | 'kh' | 'in'>('th');
 
   const heroVideos = {
     th: {
@@ -68,6 +68,13 @@ export const Hero: React.FC<HeroProps> = ({
       labelEn: '🇨🇳 ZHViet Clip (China)',
       badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI HOA HỌC TIẾNG VIỆT',
       badgeEn: 'REAL DEMO: ZHVIET LEARNING APP'
+    },
+    in: {
+      url: 'https://www.youtube.com/watch?v=Vy9qnonnyWs',
+      labelVi: '🇮🇳 Clip App InViet (Ấn Độ)',
+      labelEn: '🇮🇳 InViet Clip (India)',
+      badgeVi: 'TRẢI NGHIỆM THỰC TẾ APP NGƯỜI ẤN HỌC TIẾNG VIỆT',
+      badgeEn: 'REAL DEMO: INVIET LEARNING APP'
     },
     kh: {
       url: '', // Chừa sẵn phần đính link YouTube (Ví dụ: https://www.youtube.com/watch?v=...)
@@ -204,7 +211,7 @@ export const Hero: React.FC<HeroProps> = ({
           
           {/* Video App Selector Pills above player */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
-            {(['th', 'jp', 'kr', 'la', 'zh', 'kh'] as const).map((key) => {
+            {(['th', 'jp', 'kr', 'la', 'zh', 'in', 'kh'] as const).map((key) => {
               const isSelected = heroVideoApp === key;
               return (
                 <button
